@@ -1,0 +1,166 @@
+.container-main {
+    width: 80%;
+    min-width: 600px;
+    margin: 0 auto;
+}
+
+body {
+    padding-top: 70px;
+    padding-bottom: 30px;
+}
+
+.padding {
+    padding: 0 20px 20px 20px;
+}
+
+.theme-dropdown .dropdown-menu {
+    position: static;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.theme-showcase>p>.btn {
+    margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+    width: auto;
+}
+
+.header-container {
+    width: 100%;
+    height: 50px;
+    color: white;
+    font-size: 30px;
+    line-height: 50px;
+    margin-bottom: 10px;
+}
+
+.header-link {
+    color: white;
+}
+
+.header-link:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.connect-wallet-btn {
+    margin-left: 20px;
+    color: #fff;
+    background-color: #9c27b0;
+}
+
+.connect-wallet-btn:hover {
+    color: white;
+    background-color: #6a1b9a;
+}
+
+.custom-action-btn {
+    margin-left: 20px !important;
+    color: #fff !important;
+    background-color: #1a41c2 !important
+}
+
+.custom-action-btn:hover {
+    color: white !important;
+    background-color: #3859c5 !important;
+}
+
+.custom-container {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px #aaa;
+    min-height: 300px;
+    padding: 1rem;
+}
+
+.textarea-style {
+    resize: none;
+    overflow-y: scroll;
+}
+
+h1 {
+    font-size: 1.75em;
+}
+
+.panel {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px #AAA;
+}
+
+body {
+    background-color: #087380;
+    padding-top: 0 !important;
+}
+
+FlexContent {
+    display: flex;
+}
+
+
+/* dropzone  */
+
+.custom-dropzone {
+    height: 500px !important
+}
+
+.filedropzone {
+    position: relative;
+    min-height: 180px;
+    max-height: 490px;
+    overflow-y: hidden;
+    width: inherit;
+    border-radius: 6px;
+    border: 1px dashed #ccc;
+    background-color: #fafafa;
+    padding: 20px;
+}
+
+.droptext {
+    text-align: center;
+    font-size: 32px;
+    color: #cccccc;
+    margin-top: 10px;
+}
+
+.dropzone {
+    border: 2px dashed #dedede, !important;
+    border-radius: 5px;
+    min-width: 182px, !important;
+    background: #f5f5f5, !important;
+}
+
+.dropzone i {
+    font-size: 5rem;
+}
+
+.dropzone .dz-message {
+    color: rgba(0, 0, 0, .54);
+    font-weight: 500;
+    font-size: initial;
+    text-transform: uppercase;
+}
+
+
+/* saleinfo */
+
+.price-span {
+    color: #17a2b8!important;
+}
+
+.count-span {
+    color: #28a745!important;
+}
+
+.alert-div {
+    width: 100%;
+}
+
+.custom-input {
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 5px;
+    margin-left: 0.5rem!important;
+}
