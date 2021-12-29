@@ -21,7 +21,6 @@
     <!-- Tags Link -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link href="<?php echo base_url(); ?>assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/theme.css" rel="stylesheet">
     <script src="<?php echo base_url(); ?>assets/js/ie-emulation-modes-warning.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -40,20 +39,14 @@
     -->
 
     <!-- web3 -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js">
+    </script>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.4/dist/ethjs.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
-    <!-- end -->
-
-    <!-- slider for count -->
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js"></script>
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css" />
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script> -->
     <!-- end -->
 
     <script>
@@ -73,10 +66,7 @@
                 <div class="header-container">
                     <div style="float:right">
                         <a href="/" class="header-link">BNBDisk</a>
-                        <?php if ($sliced_address != '') {?>
-                        <button class="btn btn-default connect-wallet-btn" id="connect-btn"> <?=$sliced_address?> </button>
-                        <?php } else {?>
-                        <button class="btn btn-default connect-wallet-btn" id="connect-btn">Connect</button>
-                        <?php }?>
+                        <button class="btn btn-default connect-wallet-btn" onclick="userLoginOut()" id="connect-btn"> Connect
+                        </button>
                     </div>
                 </div>

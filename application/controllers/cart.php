@@ -45,11 +45,11 @@ class Cart extends CI_Controller {
         // log_message('error', 'kg:' . $id);
 		$address = $this->session->userdata('address');
 
-		if (!$address || $address == '') {
-			$data['sliced_address'] = '';
-		} else {
-			$data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
-		}
+		// if (!$address || $address == '') {
+		// 	$data['sliced_address'] = '';
+		// } else {
+		// 	$data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
+		// }
 
         $fileInfo = $this->main_model->getRows($id);
 
@@ -77,7 +77,7 @@ class Cart extends CI_Controller {
 
             // log_message('error', print_r($data, true));
     
-            $this->load->view('header', $data);
+            $this->load->view('header');
             $this->load->view('cartpage', $data);
             $this->load->view('footer');
         }

@@ -1,40 +1,9 @@
 // window.addEventListener('load', function() {
 window.onload = function() {
-    // $('#multi').mdbRange({
-    //     width: '100%',
-    //     direction: 'vertical',
-    //     value: {
-    //         min: 0,
-    //         max: 100,
-    //     },
-    //     single: {
-    //         active: true,
-    //         value: {
-    //             step: 1,
-    //             symbol: ''
-    //         },
-    //         counting: false,
-    //         countingTarget: null,
-    //         bgThumbColor: '#4285F4',
-    //         textThumbColor: '#fff',
-    //         multi: {
-    //             active: true,
-    //             value: {
-    //                 step: 1,
-    //                 symbol: ''
-    //             },
-    //             counting: false,
-    //             rangeLength: 2,
-    //             countingTarget: null,
-    //             bgThumbColor: '#4285F4',
-    //             textThumbColor: '#fff'
-    //         },
-    //     }
-    // });
+
 };
 
 $(document).ready(function() {
-
     // const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
     // if (gaddress == undefined || gaddress == '') {
     //     $.ajax({
@@ -54,58 +23,81 @@ $(document).ready(function() {
     //         }
     //     });
     // }
+    // var tokenId = document.querySelector("input[name='tokenId']");
+    // if (tokenId.value > 0) {
+    //     // loadingpage 
+
+    //     const web3 = new Web3(window.ethereum.currenctProvider);
+    //     if (typeof web3 !== 'undefined') {
+    //         console.log('after userloginout()!');
+
+    //         let bnbabi = abi;
+    //         const eth = new Eth(window.ethereum.currenctProvider);
+    //         var contract = eth.contract(bnbabi).at(contractAddress);
+    //         contract.tokenInfoOf(tokenId).then(function(txHash) {
+    //                 console.log('Transaction sent')
+    //                 console.dir(txHash)
+    //                     // waitForTxToBeMined(txHash)
+    //             })
+    //             .catch(error => {
+    //                 alert("sorry Failed, \n" + error);
+    //                 console.log(error);
+    //             })
+    //     }
+
+    // }
 
     var btn_connect = document.querySelector('button#connect-btn');
     var btn_uploadAndshare = document.querySelector('button#updateandshare');
+    /*
+        if (window.ethereum) {
+            window.ethereum.on("accountsChanged", (accounts) => {
+                if (accounts.length > 0) {
+                    $.ajax({
+                        method: "POST",
+                        url: baseUrl + 'index.php/maincontroller/connectWallet',
+                        data: { address: accounts[0] },
+                        dataType: 'JSON',
+                        beforeSend: function() {
+                            // $('.loading').show();
+                        },
+                        success: function(data) {
+                            //what do i fill here
+                            var button = document.querySelector('button#connect-btn');
+                            if (!data.address && data.address == '') {
+                                button.textContent = "Connect";
+                            } else {
+                                button.textContent = data.address;
+                                gaddress = data.address;
+                                setAddress(data.address);
+                            }
+                        },
+                        error: function(err) {
 
-    if (window.ethereum) {
-        window.ethereum.on("accountsChanged", (accounts) => {
-            if (accounts.length > 0) {
-                $.ajax({
-                    method: "POST",
-                    url: baseUrl + 'index.php/maincontroller/connectWallet',
-                    data: { address: accounts[0] },
-                    dataType: 'JSON',
-                    beforeSend: function() {
-                        // $('.loading').show();
-                    },
-                    success: function(data) {
-                        //what do i fill here
-                        var button = document.querySelector('button#connect-btn');
-                        if (!data.address && data.address == '') {
-                            button.textContent = "Connect";
-                        } else {
-                            button.textContent = data.address;
-                            gaddress = data.address;
-                            setAddress(data.address);
                         }
-                    },
-                    error: function(err) {
+                    });
+                } else {
+                    $.ajax({
+                        method: "POST",
+                        url: baseUrl + 'index.php/maincontroller/connectWallet',
+                        data: { address: gaddress },
+                        beforeSend: function() {
+                            // $('.loading').show();
+                        },
+                        success: function(data) {
+                            //what do i fill here
+                            var button = document.querySelector('button#connect-btn');
+                            button.textContent = "Connect";
+                        },
+                        error: function(err) {
 
-                    }
-                });
-            } else {
-                $.ajax({
-                    method: "POST",
-                    url: baseUrl + 'index.php/maincontroller/connectWallet',
-                    data: { address: gaddress },
-                    beforeSend: function() {
-                        // $('.loading').show();
-                    },
-                    success: function(data) {
-                        //what do i fill here
-                        var button = document.querySelector('button#connect-btn');
-                        button.textContent = "Connect";
-                    },
-                    error: function(err) {
-
-                    }
-                });
-            }
-        })
-    }
-
-    $('#connect-btn').click(async function() {
+                        }
+                    });
+                }
+            })
+        }
+    */
+    $('#connect-btn-org').click(async function() {
 
         if (window.ethereum) {
             try {
@@ -171,18 +163,6 @@ $(document).ready(function() {
         // }
     })
 
-    function setAddress(address) {
-        $("[name='wallet-address']").val(address);
-    }
-
-    function ellipseAddress(address = '', width = 4) {
-        if (!address) {
-            return '';
-        }
-
-        return address.slice(0, width) + '...' + address.slice(-width);
-    }
-
     // dropzone
 
     // Add restrictions
@@ -207,7 +187,7 @@ $(document).ready(function() {
         },
         renameFile: function(file) {
             // let newName = new Date().getTime() + '_' + file.name;
-            let newName = last_inserted + '_' + gaddress + file.name;
+            let newName = last_inserted + '_' + userLoginData.ethAddress + file.name;
             return newName;
         }
     };

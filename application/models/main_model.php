@@ -40,6 +40,15 @@ class Main_Model extends CI_Model
         // return $insert ? true : false;
     }
     
+    public function update_data($id, $data)
+	{
+		/**
+		 * Update all the form information in the user table referent to the id
+		 */
+		$this->db->where("id", $id);
+		$this->db->update("tbl_mintinfo", $data);
+	}
+    
     public function ellipseAddress($address, $width)
     {
         if (!$address) {

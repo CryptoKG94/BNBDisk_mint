@@ -29,7 +29,7 @@ class Sale extends CI_Controller
 
         // load download helder
         // $this->load->helper('download');
-		// $this->load->library('zip');
+        // $this->load->library('zip');
     }
 
     /**
@@ -48,37 +48,41 @@ class Sale extends CI_Controller
 
         $address = $this->session->userdata('address');
 
-        if (!$address || $address == '') {
-            $data['sliced_address'] = '';
-        } else {
-            $data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
-        }
+        // if (!$address || $address == '') {
+        //     $data['sliced_address'] = '';
+        // } else {
+        //     $data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
+        // }
 
-        $this->load->view('header', $data);
-        // $this->load->view('mainpage', $data);
-        $this->load->view('salepage');
-        $this->load->view('footer');
-
+		redirect(base_url());
     }
 
-    public function info($id = null, $toaddress = null)
+    public function info($tokenId = null, $toaddress = null)
     {
         // print_r($a . $b);
 
-        if ($id == null || $toaddress == null) {
+        if ($tokenId == null) {
             redirect(base_url());
             return;
         }
 
         $address = $this->session->userdata('address');
 
-        if (!$address || $address == '') {
-            $data['sliced_address'] = '';
-        } else {
-            $data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
-        }
+        // if (!$address || $address == '') {
+        //     $data['sliced_address'] = '';
+        // } else {
+        //     $data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
+        // }
+		$data['tokenId'] = $tokenId;
+		$this->load->view('header');
+		$this->load->view('loadpage', $data);
+		$this->load->view('footer');
+    }
 
-        $fileInfo = $this->main_model->getRows($id);
+	public function getFileInfo($dbId)
+	{
+		
+        $fileInfo = $this->main_model->getRows($dbId);
         // log_message('error', print_r($fileInfo, true));
 
         if (sizeof($fileInfo) > 0) {
@@ -99,15 +103,15 @@ class Sale extends CI_Controller
 
             $data['id'] = $id;
             $data['tokenData'] = $tokenData;
-            $data['toaddress'] = $toaddress;
+            $data['toaddress'] = $address;
 
             // log_message('error', print_r($data, true));
 
-            $this->load->view('header', $data);
+            $this->load->view('header');
             $this->load->view('salepage', $data);
             $this->load->view('footer');
         }
-    }
+	}
 
     public function download($id)
     {
@@ -132,34 +136,33 @@ class Sale extends CI_Controller
 
                 $this->zip->download('files.zip');
             } else {
-                foreach ($fileList as $file) {
-                    $_file = realpath("uploads/" . $file[0]);
-                    // $_file = base_url()."uploads/" . $file[0];
+                $file = $fileList[0];
+                $_file = realpath("uploads/" . $file[0]);
+                // $_file = base_url()."uploads/" . $file[0];
 
-					log_message('error', '------------------' . print_r($_file, true));
+                log_message('error', '------------------' . print_r($_file, true));
 
-                    // check file exists
-                    if (file_exists($_file)) {
+                // check file exists
+                if (file_exists($_file)) {
 
-                        // header('Content-Description: File Transfer');
-                        // header('Content-Type: application/octet-stream');
-                        // header('Content-Disposition: attachment; filename="' . basename($_file) . '"');
-                        // header('Expires: 0');
-                        // header('Cache-Control: must-revalidate');
-                        // header('Pragma: public');
-                        // header('Content-Length: ' . filesize($_file));
-                        // flush(); // Flush system output buffer
-                        // readfile($_file);
-                        // die();
+                    // header('Content-Description: File Transfer');
+                    // header('Content-Type: application/octet-stream');
+                    // header('Content-Disposition: attachment; filename="' . basename($_file) . '"');
+                    // header('Expires: 0');
+                    // header('Cache-Control: must-revalidate');
+                    // header('Pragma: public');
+                    // header('Content-Length: ' . filesize($_file));
+                    // flush(); // Flush system output buffer
+                    // readfile($_file);
+                    // die();
 
-                        $data = file_get_contents($_file);
-                        //force download
-                        // force_download($file[0], $data, "application/octet-stream");
-                    } else {
-                        log_message('error', '------------------ file not exist.');
-                        // Redirect to base url
-                        redirect(base_url());
-                    }
+                    $data = file_get_contents($_file);
+                    //force download
+                    force_download($file[0], $data, "application/octet-stream");
+                } else {
+                    log_message('error', '------------------ file not exist.');
+                    // Redirect to base url
+                    redirect(base_url());
                 }
             }
 
@@ -170,7 +173,26 @@ class Sale extends CI_Controller
 
     public function buy()
     {
+		$id = $this->input->post('id');
+		$toaddress = $this->input->post('address');
 
+		$address = $this->session->userData('address');
+
+		if (!$toaddress) {
+			return;
+		}
+
+		$fileInfo = $this->main_model->getRows($id);
+		if ($fileInfo && sizeof($fileInfo) == 1) {
+			$data = array(
+				"count" => $fileInfo['count'] - 1,
+			);
+
+			$result = $this->main_model->update_data($id, $data);
+			echo $result;
+		}
+
+		echo 'error';
     }
 
 }

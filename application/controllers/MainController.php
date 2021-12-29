@@ -38,37 +38,15 @@ class MainController extends CI_Controller
      */
     public function index()
     {
+        // $address = $this->session->userdata('address');
 
-        /**
-         * Select all users from the database using the index_model
-         *
-         * @var array $query  Select all the users
-         */
-        // $query = $this->main_model->get_all();
+		// if (!$address || $address == '') {
+		// 	$data['sliced_address'] = '';
+		// } else {
+		// 	$data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
+		// }
 
-        /**
-         * Save the query result in a new variable
-         *
-         * @var array $data  Create a key and save all the results
-         */
-        // $data = array(
-        //     "all"   => $query
-        // );
-
-        /**
-         * Load all the views and send the data variable
-         */
-
-        $address = $this->session->userdata('address');
-
-		if (!$address || $address == '') {
-			$data['sliced_address'] = '';
-		} else {
-			$data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
-		}
-
-        $this->load->view('header', $data);
-        // $this->load->view('mainpage', $data);
+        $this->load->view('header');
         $this->load->view('mainpage');
         $this->load->view('footer');
 

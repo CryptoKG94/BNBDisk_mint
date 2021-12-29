@@ -51,10 +51,10 @@
 </div>
 
 <script>
-/**
- * download for salepage
- */
 
+/**
+ * ajax download for salepage, now not used.
+ */
 $("button#download").click(function() {
     var id = document.querySelector('input[name="id"]');
     var toaddress = document.querySelector('input[name="toaddress"]');
@@ -74,19 +74,54 @@ $("button#download").click(function() {
             //what do i fill here
             if (data.success) {
 
-                // var files = data.files;
+                var files = data.files;
 
-                // files && files.forEach(file => {
-                //     // const url = URL.createObjectURL(baseUrl + 'uploads/' + file[0]);
-                //     let url = baseUrl + 'uploads/' + file[0];
-                //     const link = document.createElement('a');
-                //     link.href = url;
-                //     document.body.append(link);
-                //     link.click();
-                //     document.body.removeChild(link);
-                //     URL.revokeObjectURL(url);
-                //     console.log('download.');
-                // });
+                files && files.forEach(file => {
+                    // const url = URL.createObjectURL(baseUrl + 'uploads/' + file[0]);
+                    let url = baseUrl + 'uploads/' + file[0];
+                    const link = document.createElement('a');
+                    link.href = url;
+                    document.body.append(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    console.log('download.');
+                });
+            }
+        },
+        error: function(err) {
+
+        }
+    });
+})
+
+$("button#buy").click(function() {
+    var id = document.querySelector('input[name="id"]');
+    var toaddress = document.querySelector('input[name="toaddress"]');
+
+    if (toaddress.value == '')
+    {
+        alert('please connect wallet.').
+        return;
+    }
+
+    // access to contract here.
+
+    
+    $.ajax({
+        method: "POST",
+        url: baseUrl + 'index.php/sale/buy',
+        data: {
+            id: id.value,
+            toaddress: toaddress.value
+        },
+        dataType: 'JSON',
+        beforeSend: function() {
+            // $('.loading').show();
+        },
+        success: function(data) {
+            //what do i fill here
+            if (data.success) {
             }
         },
         error: function(err) {

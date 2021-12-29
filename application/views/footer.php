@@ -14,8 +14,10 @@ window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js
 		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/docs.min.js"></script>
 
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="<?php echo base_url(); ?>assets/js/ie10-viewport-bug-workaround.js"></script>
+		<!-- other js -->
+		<script src="<?php echo base_url(); ?>assets/js/bnbdisk.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/main.js?v=009"></script>
+		<script src="<?php echo base_url(); ?>assets/js/web3-modal.js?v=001"></script>
 
 		</body>
 
