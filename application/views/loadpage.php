@@ -3,4 +3,5 @@
         <h2>Volumne Created</h2>
     </div>
     <input value="<?=$tokenId?>" name="tokenId" hidden>
+    <input value="<?=$pageId?>" name="pageId" hidden>
 </div>

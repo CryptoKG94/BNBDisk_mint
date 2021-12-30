@@ -24,7 +24,7 @@
         </div>
         <div class='col-6'>
             <b>Info(Description by file owner):</b><br />
-            <strong class="text-muted"><?=$tokenData['fileInfoText']?></strong>
+            <strong class="text-muted"><?=$tokenData['saleText']?></strong>
         </div>
     </div>
     <div class="row">
@@ -34,13 +34,17 @@
                     <div style="wordWrap: break-word">
                         Address:
                         <input class="custom-input" value="<?=$toaddress?>" name="toaddress" style="width: 430px">
-                        <input value="<?=$id?>" name="id" hidden>
+                        <input value="<?=$dbId?>" name="dbId" hidden>
+                        <input value="<?=$tokenId?>" name="tokenId" hidden>
                     </div>
                     <div class="mt-2">
-                        <a href="<?=base_url().'sale/download/'.$id?>" id="download" class="btn btn-default custom-action-btn mr-3">
+                        <!-- <a href="<?php //base_url().'sale/download/'.$dbId?>" id="download" class="btn btn-default custom-action-btn mr-3" hidden>
+                        </a> -->
+                        <button id="download_" onclick="onDownload()" class="btn btn-default custom-action-btn">
                             Download
-                        </a>
-                        <button id="buy" class="btn btn-default custom-action-btn" style="float: right">
+                        </button>
+                        <button id="buy" onclick="onBuyNFT()" class="btn btn-default custom-action-btn"
+                            style="float: right">
                             Buy
                         </button>
                     </div>
@@ -51,11 +55,10 @@
 </div>
 
 <script>
-
 /**
  * ajax download for salepage, now not used.
  */
-$("button#download").click(function() {
+$("button#download_").click(function() {
     var id = document.querySelector('input[name="id"]');
     var toaddress = document.querySelector('input[name="toaddress"]');
 
@@ -95,19 +98,18 @@ $("button#download").click(function() {
     });
 })
 
-$("button#buy").click(function() {
+$("button#buy_").click(function() {
     var id = document.querySelector('input[name="id"]');
     var toaddress = document.querySelector('input[name="toaddress"]');
 
-    if (toaddress.value == '')
-    {
+    if (toaddress.value == '') {
         alert('please connect wallet.').
         return;
     }
 
     // access to contract here.
 
-    
+
     $.ajax({
         method: "POST",
         url: baseUrl + 'index.php/sale/buy',
@@ -121,8 +123,7 @@ $("button#buy").click(function() {
         },
         success: function(data) {
             //what do i fill here
-            if (data.success) {
-            }
+            if (data.success) {}
         },
         error: function(err) {
 

@@ -40,7 +40,7 @@
                 <div style="display:flex, justifyContent: space-between">
                     <div style="wordWrap:break-word">
                         <!-- <LinkIcon /> -->
-                        <a href="<?php echo base_url();?>index.php/sale/info/<?php echo $tokenId?>"
+                        <a href="<?php echo base_url();?>index.php/sale/loading/<?php echo $tokenId?>"
                             style="marginLeft: 8, fontSize:18px"> <?=base_url();?>sale/<?=$tokenId?>
                         </a>
                     </div>

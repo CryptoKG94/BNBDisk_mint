@@ -21,7 +21,7 @@ class Main_Model extends CI_Model
             $query = $this->db->get();
             $result = $query->row_array();
         } else {
-            $this->db->order_by('uploaded_on', 'desc');
+            $this->db->order_by('uploaded_at', 'desc');
             $query = $this->db->get();
             $result = $query->result_array();
         }

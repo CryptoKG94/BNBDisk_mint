@@ -10,7 +10,7 @@
                     </button></br>
 
                     <span class='ml-2 mt-3'> Transfer Ownership:</span></br>
-                    <input class="custom-input mb-2" name="setfee" style="width: 400px">
+                    <input class="custom-input mb-2" name="address" style="width: 400px">
                     <button id="transfer" onclick="onTransferOwnership()" class="btn btn-default custom-action-btn mb-2">
                         TRANSFER
                     </button></br>

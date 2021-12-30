@@ -57,7 +57,9 @@
 </head>
 
 <body style="background-color:#070b28">
-
+<div id="loading" style="visibility:hidden">
+    <h3 style="color:white"> Uploading and Sharing... </h3>
+</div>
     <!-- Start Responsive Container -->
     <!-- <div class="container theme-showcase" role="main"> -->
     <section class="showcase">

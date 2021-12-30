@@ -8,7 +8,7 @@ $(document).ready(function() {
     // if (gaddress == undefined || gaddress == '') {
     //     $.ajax({
     //         method: "POST",
-    //         url: baseUrl + 'index.php/maincontroller/connectWallet',
+    //         url: baseUrl + 'index.php/MainController/connectWallet',
     //         data: { address: '' },
     //         beforeSend: function() {
     //             // $('.loading').show();
@@ -23,29 +23,7 @@ $(document).ready(function() {
     //         }
     //     });
     // }
-    // var tokenId = document.querySelector("input[name='tokenId']");
-    // if (tokenId.value > 0) {
-    //     // loadingpage 
 
-    //     const web3 = new Web3(window.ethereum.currenctProvider);
-    //     if (typeof web3 !== 'undefined') {
-    //         console.log('after userloginout()!');
-
-    //         let bnbabi = abi;
-    //         const eth = new Eth(window.ethereum.currenctProvider);
-    //         var contract = eth.contract(bnbabi).at(contractAddress);
-    //         contract.tokenInfoOf(tokenId).then(function(txHash) {
-    //                 console.log('Transaction sent')
-    //                 console.dir(txHash)
-    //                     // waitForTxToBeMined(txHash)
-    //             })
-    //             .catch(error => {
-    //                 alert("sorry Failed, \n" + error);
-    //                 console.log(error);
-    //             })
-    //     }
-
-    // }
 
     var btn_connect = document.querySelector('button#connect-btn');
     var btn_uploadAndshare = document.querySelector('button#updateandshare');
@@ -172,17 +150,32 @@ $(document).ready(function() {
     // maxFilesize: 1 // MB
     // };
 
+    var processedfile = 0;
     var dropzoneOptions = {
         dictDefaultMessage: 'Drop Here!',
         paramName: "file",
-        maxFilesize: 2, // MB
+        maxFilesize: 5, // MB
+        maxFiles: 8,
         addRemoveLinks: true,
         autoProcessQueue: false,
         url: baseUrl + "index.php/maincontroller/dragdrop_upload",
         init: function() {
-            this.on("success", function(file) {
+            this.on("success", async function(file) {
                 console.log("success > " + file.name);
-                window.location = baseUrl + "index.php/cart/upload/" + last_inserted;
+
+                processedfile++;
+                if (processedfile == file_count) {
+
+                    let res = await onMintNFT(wallet.value, price.value, count.value, last_inserted.toString());
+                    if (res.success) {
+                        hiddenLoading();
+                        // window.localStorage.setItem(TOKEN_ID, res.tokenId);
+                        window.location = baseUrl + "index.php/sale/loading/" + res.status + "/" + cartpageId;
+                    } else {
+                        hiddenLoading();
+                        alert(res.status);
+                    }
+                }
             });
         },
         renameFile: function(file) {
@@ -195,15 +188,17 @@ $(document).ready(function() {
     var myDropzone = new Dropzone(uploader, dropzoneOptions);
 
     var last_inserted = 0;
+    var file_count = 0;
+    var desc = document.querySelector('textarea[name="desc"]');
+    var info = document.querySelector('textarea[name="info"]');
+    var price = document.querySelector('input[name="price"]');
+    var wallet = document.querySelector('input[name="wallet-address"]');
+    var count = document.querySelector('input[name="count"]');
 
     $("#updateandshare").click(function() {
 
         var filelist;
-        var desc = document.querySelector('textarea[name="desc"]');
-        var info = document.querySelector('textarea[name="info"]');
-        var price = document.querySelector('input[name="price"]');
-        var wallet = document.querySelector('input[name="wallet-address"]');
-        var count = document.querySelector('input[name="count"]');
+        processedfile = file_count = 0;
 
         if (desc.value == '' ||
             price.value == '0' ||
@@ -214,7 +209,7 @@ $(document).ready(function() {
 
         var filelist = myDropzone.getQueuedFiles();
         if (filelist.length > 0) {
-
+            file_count = filelist.length;
         } else {
             alert('please upload file(s).');
             return;
@@ -227,11 +222,11 @@ $(document).ready(function() {
         dataObj = {
             address: wallet.value,
             desc: desc.value,
-            price: price.value,
             info: info.value,
             filelist: fileinfos,
-            count: count.value
         }
+
+        showLoading();
 
         $.ajax({
             method: "POST",
@@ -250,7 +245,7 @@ $(document).ready(function() {
                 }
             },
             error: function(err) {
-
+                hiddenLoading();
             }
         });
         // window.location.href = "<?php echo site_url('sale'); ?>";

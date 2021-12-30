@@ -41,8 +41,18 @@ class Cart extends CI_Controller {
         
 	}
 
-	function upload($id){ 
+	function upload() { 
         // log_message('error', 'kg:' . $id);
+        $tokenId = $this->input->get('t');
+        $dbId = $this->input->get('d');
+        $price = $this->input->get('p');
+        $limit = $this->input->get('l');
+        $count = $this->input->get('c');
+
+        log_message('error', '***upload*** : ' . $tokenId . ',' . $dbId . ',' . $price . ',', $limit . ',' . $count);
+        log_message('error', print_r($limit, true));
+        log_message('error', print_r($count, true));
+
 		$address = $this->session->userdata('address');
 
 		// if (!$address || $address == '') {
@@ -51,7 +61,7 @@ class Cart extends CI_Controller {
 		// 	$data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
 		// }
 
-        $fileInfo = $this->main_model->getRows($id);
+        $fileInfo = $this->main_model->getRows($dbId);
 
         // log_message('error', print_r($fileInfo, true));
 		
@@ -67,12 +77,12 @@ class Cart extends CI_Controller {
             }
             
             $tokenData['saleText'] = $fileInfo['desc'];
-            $tokenData['bnbVal'] = $fileInfo['price'];
-            $tokenData['limit'] = $fileInfo['count'] > 100 ? 1 : 0;
+            $tokenData['bnbVal'] = $price;
+            $tokenData['limit'] = $limit == 'true' ? 1 : 0;
             $tokenData['saleCount'] = $fileInfo['count'];
             
             $data['tokenData'] = $tokenData;
-            $data['tokenId'] = $id;
+            $data['tokenId'] = $tokenId;
             $data['address'] = $address;
 
             // log_message('error', print_r($data, true));

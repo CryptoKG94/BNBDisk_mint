@@ -16,61 +16,85 @@ let selectedAccount;
 let web3ModalProv;
 
 function web3ModalInit() {
-  // Tell Web3modal what providers we have available.
-  // Built-in web browser provider (only one can exist as a time)
-  // like MetaMask, Brave or Opera is added automatically by Web3modal
-  const providerOptions = {
-    walletconnect: {
-      package: WalletConnectProvider,
-      options: {
-        // Mikko's test key - don't copy as your mileage may vary
-        infuraId: "8043bb2cf99347b1bfadfb233c5325c0",
-      }
-    },
-  };
+    // Tell Web3modal what providers we have available.
+    // Built-in web browser provider (only one can exist as a time)
+    // like MetaMask, Brave or Opera is added automatically by Web3modal
+    const providerOptions = {
+        walletconnect: {
+            package: WalletConnectProvider,
+            options: {
+                // Mikko's test key - don't copy as your mileage may vary
+                infuraId: "8043bb2cf99347b1bfadfb233c5325c0",
+            }
+        },
+    };
 
-  web3Modal = new Web3Modal({
-    cacheProvider: false, // optional
-    providerOptions, // required
-    disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
-  });
+    web3Modal = new Web3Modal({
+        cacheProvider: false, // optional
+        providerOptions, // required
+        disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
+    });
 }
 
 async function fetchAccountData() {
-  web3ModalProv = new Web3(provider);
- 
-  // Subscribe to accounts change
-  provider.on("accountsChanged", (accounts) => {
-    console.log(accounts);
-  });
+    web3ModalProv = new Web3(provider);
 
-  // Subscribe to chainId change
-  provider.on("chainChanged", (chainId) => {
-    console.log(chainId);
-  });
+    // Subscribe to accounts change
+    provider.on("accountsChanged", (accounts) => {
+        console.log(accounts);
+    });
 
-  // Subscribe to session disconnection
-  provider.on("disconnect", (code, reason) => {
-    console.log(code, reason);
-  });
+    // Subscribe to chainId change
+    provider.on("chainChanged", (chainId) => {
+        console.log(chainId);
+    });
+
+    // Subscribe to session disconnection
+    provider.on("disconnect", (code, reason) => {
+        console.log(code, reason);
+    });
 }
 
 async function refreshAccountData() {
-  await fetchAccountData(provider);
+    await fetchAccountData(provider);
 }
 
 async function onConnectLoadWeb3Modal() {
 
-  try {
-    provider = await web3Modal.connect();
-  } catch(e) {
-    console.log("Could not get a wallet connection", e);
-    return;
-  }
+    try {
+        provider = await web3Modal.connect();
+    } catch (e) {
+        console.log("Could not get a wallet connection", e);
+        return;
+    }
 
-  await refreshAccountData();
+    await refreshAccountData();
 }
 
-window.addEventListener('load', async () => {
-  web3ModalInit();
+window.addEventListener('load', async() => {
+    web3ModalInit();
+
+    showButtonText();
+
+    var tokenId = document.querySelector("input[name='tokenId']");
+    var pageId = document.querySelector("input[name='pageId']");
+
+    // load page for cartpage
+    if (tokenId && tokenId.value > 0 && pageId && pageId.value == cartpageId) {
+        // loadingpage 
+        let res = await getAssetInfo(tokenId.value);
+
+        if (res.success) {
+            window.location.href = baseUrl + 'index.php/cart/upload?t=' + res.status.tokenId + "&d=" + res.status.dbId + "&p=" + res.status.bnbVal + "&l=" + res.status.limit + "&c=" + res.status.count;
+        }
+    }
+
+    // load page for sale
+    if (tokenId && tokenId.value > 0 && pageId && pageId.value == salepageId) {
+        // loadingpage 
+        let res = await getAssetInfo(tokenId.value);
+        if (res.success) {
+            window.location.href = baseUrl + 'index.php/sale/info?t=' + res.status.tokenId + "&d=" + res.status.dbId + "&p=" + res.status.bnbVal + "&l=" + res.status.limit + "&c=" + res.status.count;
+        }
+    }
 });

@@ -118,30 +118,19 @@ class MainController extends CI_Controller
 		$address = $this->input->post('address');
 		$desc = $this->input->post('desc');
 		$info = $this->input->post('info');
-		$price = $this->input->post('price');
-		$count = $this->input->post('count');
 		$filelist = $this->input->post('filelist');
 
-		if (!$count) {
-			$count = 20;
-		}
-
-		$filenames = '';
+		// $filenames = '';
 		// foreach ($filelist as $item) {
 		// 	$filenames .= $item . ',';
 		// }
-
-		$filenames = substr($filenames, 0, -1);
+		// $filenames = substr($filenames, 0, -1);
 		$filenames = json_encode($filelist);
-
-		log_message('debug', '****************'. $address . '***' . $desc . '***' . $info . '***' . $price . '***', $count . '***' . $filenames . '*******');
 
 		$data = array(
 			"wallet_address"   	=> $address,
 			"desc"		=> $desc,
 			"info"		=> $info,
-			"price" 	=> $price,
-			"count"		=> $count,
 			"file_list"	=> $filenames
 		);
 		/**

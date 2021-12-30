@@ -54,10 +54,10 @@ class Sale extends CI_Controller
         //     $data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
         // }
 
-		redirect(base_url());
+        redirect(base_url());
     }
 
-    public function info($tokenId = null, $toaddress = null)
+    public function loading($tokenId = null, $pageId = null)
     {
         // print_r($a . $b);
 
@@ -73,19 +73,44 @@ class Sale extends CI_Controller
         // } else {
         //     $data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
         // }
-		$data['tokenId'] = $tokenId;
-		$this->load->view('header');
-		$this->load->view('loadpage', $data);
-		$this->load->view('footer');
+        $data['tokenId'] = $tokenId;
+        $data['pageId'] = $pageId ? $pageId : 0;
+        $this->load->view('header');
+        $this->load->view('loadpage', $data);
+        $this->load->view('footer');
     }
 
-	public function getFileInfo($dbId)
-	{
-		
+    public function info()
+    {
+        // log_message('error', 'kg:' . $id);
+        $tokenId = $this->input->get('t');
+        $dbId = $this->input->get('d');
+        $price = $this->input->get('p');
+        $limit = $this->input->get('l');
+        $count = $this->input->get('c');
+
+		if (!$tokenId || !$dbId) {
+			return;
+		}
+
+        // log_message('error', '***upload*** : ' . $tokenId . ',' . $dbId . ',' . $price . ',', $limit . ',' . $count);
+        // log_message('error', print_r($limit, true));
+        // log_message('error', print_r($count, true));
+
+        $address = $this->session->userdata('address');
+
+        // if (!$address || $address == '') {
+        //     $data['sliced_address'] = '';
+        // } else {
+        //     $data['sliced_address'] = $this->main_model->ellipseAddress($address, ADDRESS_SLICE);
+        // }
+
         $fileInfo = $this->main_model->getRows($dbId);
+
         // log_message('error', print_r($fileInfo, true));
 
         if (sizeof($fileInfo) > 0) {
+
             $fileList = json_decode($fileInfo['file_list']);
             $tokenData['files'] = array();
 
@@ -96,13 +121,13 @@ class Sale extends CI_Controller
             }
 
             $tokenData['saleText'] = $fileInfo['desc'];
-            $tokenData['bnbVal'] = $fileInfo['price'];
-            $tokenData['limit'] = $fileInfo['count'] > 100 ? 1 : 0;
+            $tokenData['bnbVal'] = $price;
+            $tokenData['limit'] = $limit == 'true' ? 1 : 0;
             $tokenData['saleCount'] = $fileInfo['count'];
-            $tokenData['fileInfoText'] = $fileInfo['info'];
 
-            $data['id'] = $id;
             $data['tokenData'] = $tokenData;
+            $data['tokenId'] = $tokenId;
+			$data['dbId'] = $dbId;
             $data['toaddress'] = $address;
 
             // log_message('error', print_r($data, true));
@@ -111,11 +136,12 @@ class Sale extends CI_Controller
             $this->load->view('salepage', $data);
             $this->load->view('footer');
         }
-	}
 
-    public function download($id)
+    }
+
+    public function download($id = null)
     {
-        // $id = $this->input->post('id');
+        // $id = $this->input->get('id');
         // $id = 23;
         log_message('error', print_r($id, true));
         // $toaddress = $this->input->post('toaddress');
@@ -173,26 +199,26 @@ class Sale extends CI_Controller
 
     public function buy()
     {
-		$id = $this->input->post('id');
-		$toaddress = $this->input->post('address');
+        $id = $this->input->post('id');
+        $toaddress = $this->input->post('address');
 
-		$address = $this->session->userData('address');
+        $address = $this->session->userData('address');
 
-		if (!$toaddress) {
-			return;
-		}
+        if (!$toaddress) {
+            return;
+        }
 
-		$fileInfo = $this->main_model->getRows($id);
-		if ($fileInfo && sizeof($fileInfo) == 1) {
-			$data = array(
-				"count" => $fileInfo['count'] - 1,
-			);
+        $fileInfo = $this->main_model->getRows($id);
+        if ($fileInfo && sizeof($fileInfo) == 1) {
+            $data = array(
+                "count" => $fileInfo['count'] - 1,
+            );
 
-			$result = $this->main_model->update_data($id, $data);
-			echo $result;
-		}
+            $result = $this->main_model->update_data($id, $data);
+            echo $result;
+        }
 
-		echo 'error';
+        echo 'error';
     }
 
 }
