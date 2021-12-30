@@ -1,4 +1,4 @@
-CodeIgniter CRUD(CI VERSION 3.1.9)
+CodeIgniter and Web3.js (CI VERSION 3.1.9)
 ================
 
 This is codeigniter example to connect smart contract using web3.js
