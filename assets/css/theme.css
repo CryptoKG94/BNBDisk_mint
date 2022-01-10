@@ -36,6 +36,14 @@ body {
     margin-bottom: 10px;
 }
 
+.footer-container {
+    height: 40px;
+    color: white;
+    font-size: 16px;
+    line-height: 40px;
+    margin: 0 30px;
+}
+
 .header-link {
     color: white;
 }
@@ -174,4 +182,8 @@ FlexContent {
     position: fixed;
     z-index: 9999;
     background-color: rgba(75, 74, 74, 0.459)
+}
+
+.mymodal-title {
+    text-align: center !important;
 }
