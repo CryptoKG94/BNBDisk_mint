@@ -8,7 +8,7 @@
                 <h4>Price: <?=$tokenData['bnbVal']?> BNB</h4>
             </div><br />
             <div class="count-span">
-                <h5>Count: <?php if ($tokenData['limit']) {?>No Limit <?php } else {echo $tokenData['saleCount'];}?>
+                <h5 id="#count">Count: <?php if ($tokenData['limit']) {?>No Limit <?php } else {echo $tokenData['saleCount'];}?>
                 </h5>
             </div><br />
             <b>Total: <?=sizeof($tokenData['files'])?> file(s)</b> <br />
@@ -23,8 +23,14 @@
             </ul>
         </div>
         <div class='col-6'>
-            <b>Info(Description by file owner):</b><br />
-            <strong class="text-muted"><?=$tokenData['saleText']?></strong>
+            <div class="saleinfo-span">
+                <b>Text for sale:</b><br />
+                <strong class="text-muted"><?=$tokenData['saleText']?></strong>
+            </div>
+            <div class="fileinfo-span">
+                <b>File info:</b><br />
+                <strong class="text-muted"><?=$tokenData['fileInfo']?></strong>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -40,10 +46,10 @@
                     <div class="mt-2">
                         <!-- <a href="<?php //base_url().'sale/download/'.$dbId?>" id="download" class="btn btn-default custom-action-btn mr-3" hidden>
                         </a> -->
-                        <button id="download_" onclick="onDownload()" class="btn btn-default custom-action-btn">
+                        <button id="download_" onclick="onDownload()" class="btn btn-primary">
                             Download
                         </button>
-                        <button id="buy" onclick="onBuyNFT()" class="btn btn-default custom-action-btn"
+                        <button id="buy" onclick="onBuyNFT()" class="btn btn-primary"
                             style="float: right">
                             Buy
                         </button>

@@ -37,11 +37,11 @@
                     again. Share this link directly to buyers. Publish at social networks, messenger channel, forum,
                     blog, site, etc...
                 </p>
-                <div style="display:flex, justifyContent: space-between">
+                <div style="display:flex; justify-content: space-between">
                     <div style="wordWrap:break-word">
                         <!-- <LinkIcon /> -->
                         <a href="<?php echo base_url();?>index.php/sale/loading/<?php echo $tokenId?>"
-                            style="marginLeft: 8, fontSize:18px"> <?=base_url();?>sale/<?=$tokenId?>
+                            style="marginLeft: 8, fontSize:18px"> <?=base_url();?>sale/loading/<?=$tokenId?>
                         </a>
                     </div>
                     <div>

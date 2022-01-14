@@ -67,7 +67,7 @@
         <div class="col-lg-12 text-center mt-4">
             <input name="filenames" type="text" hidden />
             <input name="filedirnames" type="text" hidden />
-            <button type="submit" class="btn btn-default custom-action-btn" id="updateandshare">Upload and Share
+            <button type="submit" class="btn btn-primary" id="updateandshare">Upload and Share
             </button>
         </div>
     </div>

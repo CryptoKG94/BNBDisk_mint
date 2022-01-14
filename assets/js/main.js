@@ -69,20 +69,27 @@ function showButtonText() {
 async function onBuyNFT() {
     let tokenId = document.querySelector("input[name='tokenId']");
     var dbId = document.querySelector('input[name="dbId"]');
+    let count = document.querySelector("div#count");
     showLoading();
     let res = await isPurchased(tokenId.value, userLoginData.ethAddress);
     console.log(res);
     if (res.success) {
         if (res.status) {
             alert('You already bought this NFT.');
+            hiddenLoading();
             return;
         }
     }
 
     res = await getAssetInfo(tokenId.value);
-    if (!res.success)
+    if (!res.success) {
         alert(res.status);
+        hiddenLoading();
+        return;
+    }
 
+    let countVal = res.status.count
+    let limitVal = res.status.limit
     res = await buyNFT(tokenId.value, res.status.bnbVal);
 
     hiddenLoading();
@@ -91,6 +98,14 @@ async function onBuyNFT() {
         const link = document.createElement('a');
         link.href = baseUrl + 'index.php/sale/download/' + dbId.value;
         link.click();
+
+        // link.href = baseUrl + 'index.php/sale/loading/' + tokenId.value;
+        // link.click();
+
+        // if (!limitVal) {
+        //     countVal--;
+        //     count.innerHTML = "Count: " + countVal;
+        // }
 
     } else {
         alert(res.status);
@@ -295,7 +310,7 @@ const getAssetInfo = async(tokenId) => {
         data.count = res[0]; // parseInt(res);
         data.limit = res[1];
         //data.bnbVal = res[2]; // / (Math.pow(10, getBNBDecimals()));
-        data.bnbVal = web3.utils.fromWei(""+res[2]);
+        data.bnbVal = web3.utils.fromWei("" + res[2]);
         data.dbId = res[4]
         return {
             success: true,
@@ -431,7 +446,7 @@ async function onMintNFT(address, price, count, last_inserted) {
     let contract = new web3.eth.Contract(abi, contractAddress)
 
     try {
-        let totalPrice = web3.utils.toWei(""+price)
+        let totalPrice = web3.utils.toWei("" + price)
         let res = await contract.methods.mintNFT(address, totalPrice, count, last_inserted).send({ from: address });
         let tokenId = res.events.MintNewToken.returnValues['tokenId']
         return {

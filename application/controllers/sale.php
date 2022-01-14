@@ -123,7 +123,8 @@ class Sale extends CI_Controller
             $tokenData['saleText'] = $fileInfo['desc'];
             $tokenData['bnbVal'] = $price;
             $tokenData['limit'] = $limit == 'true' ? 1 : 0;
-            $tokenData['saleCount'] = $fileInfo['count'];
+            $tokenData['saleCount'] = $count;
+            $tokenData['fileInfo'] = $fileInfo['info'];
 
             $data['tokenData'] = $tokenData;
             $data['tokenId'] = $tokenId;
