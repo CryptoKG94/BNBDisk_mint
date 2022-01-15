@@ -85,7 +85,7 @@ window.addEventListener('load', async() => {
         let res = await getAssetInfo(tokenId.value);
 
         if (res.success) {
-            window.location.href = baseUrl + 'index.php/cart/upload?t=' + res.status.tokenId + "&d=" + res.status.dbId + "&p=" + res.status.bnbVal + "&l=" + res.status.limit + "&c=" + res.status.count;
+            window.location.href = baseUrl + 'index.php/Cart/upload?t=' + res.status.tokenId + "&d=" + res.status.dbId + "&p=" + res.status.bnbVal + "&l=" + res.status.limit + "&c=" + res.status.count;
         }
     }
 
@@ -94,7 +94,7 @@ window.addEventListener('load', async() => {
         // loadingpage 
         let res = await getAssetInfo(tokenId.value);
         if (res.success) {
-            window.location.href = baseUrl + 'index.php/sale/info?t=' + res.status.tokenId + "&d=" + res.status.dbId + "&p=" + res.status.bnbVal + "&l=" + res.status.limit + "&c=" + res.status.count;
+            window.location.href = baseUrl + 'index.php/Sale/info?t=' + res.status.tokenId + "&d=" + res.status.dbId + "&p=" + res.status.bnbVal + "&l=" + res.status.limit + "&c=" + res.status.count;
         }
     }
 });

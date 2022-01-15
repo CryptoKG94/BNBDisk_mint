@@ -23,7 +23,7 @@
             </ul>
         </div>
         <div class='col-6'>
-            <div class="saleinfo-span">
+            <div class="saleinfo-span" style="display: none">
                 <b>Text for sale:</b><br />
                 <strong class="text-muted"><?=$tokenData['saleText']?></strong>
             </div>

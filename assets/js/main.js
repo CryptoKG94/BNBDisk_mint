@@ -95,8 +95,12 @@ async function onBuyNFT() {
     hiddenLoading();
     if (res.success) {
 
+        var saleInfo = document.querySelector(".saleinfo-span");
+        if (saleInfo)
+            saleInfo.style.display = "block";
+
         const link = document.createElement('a');
-        link.href = baseUrl + 'index.php/sale/download/' + dbId.value;
+        link.href = baseUrl + 'index.php/Sale/download/' + dbId.value;
         link.click();
 
         // link.href = baseUrl + 'index.php/sale/loading/' + tokenId.value;
@@ -124,7 +128,7 @@ async function onDownload() {
         if (res.status) {
 
             const link = document.createElement('a');
-            link.href = baseUrl + 'index.php/sale/download/' + dbId.value;
+            link.href = baseUrl + 'index.php/Sale/download/' + dbId.value;
             link.click();
         } else {
             alert('please buy NFT.');
@@ -180,6 +184,20 @@ async function userLogin() {
     address = address.toLowerCase();
     userLoginData.state = "signTheMessage";
     showMsg(userLoginData.state);
+
+    // for sale text.
+
+    let tokenId = document.querySelector("input[name='tokenId']");
+    if (tokenId) {
+        // sale page and cart page
+        let res = await isPurchased(tokenId.value, address);
+        if (res.success) {
+            var saleInfo = document.querySelector(".saleinfo-span");
+            if (saleInfo)
+                saleInfo.style.display = "block";
+        }
+
+    }
 
     $.ajax({
         method: "POST",
