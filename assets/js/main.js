@@ -191,7 +191,7 @@ async function userLogin() {
     if (tokenId) {
         // sale page and cart page
         let res = await isPurchased(tokenId.value, address);
-        if (res.success) {
+        if (res.success && res.status) {
             var saleInfo = document.querySelector(".saleinfo-span");
             if (saleInfo)
                 saleInfo.style.display = "block";
