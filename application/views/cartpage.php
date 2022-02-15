@@ -41,7 +41,7 @@
                     <div style="wordWrap:break-word">
                         <!-- <LinkIcon /> -->
                         <a href="<?php echo base_url();?>index.php/sale/loading/<?php echo $tokenId?>"
-                            style="marginLeft: 8, fontSize:18px"> <?=base_url();?>sale/loading/<?=$tokenId?>
+                            style="marginLeft: 8, fontSize:18px"> <?=base_url();?>/index.php/Sale/loading/<?=$tokenId?>
                         </a>
                     </div>
                     <div>

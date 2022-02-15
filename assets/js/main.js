@@ -1,4 +1,5 @@
-const contractAddress = "0x63261a0ACc9dc844D288acF27dc706C60940B70f";
+const contractAddress = "0x63261a0ACc9dc844D288acF27dc706C60940B70f"; //for testnet.
+// const contractAddress = "0x4a2E84bFBC4af167B97D3AE0f330D7898CA0F24b";
 
 let userLoginData = {
     state: "loggedOut",

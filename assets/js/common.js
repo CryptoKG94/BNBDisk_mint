@@ -230,7 +230,7 @@ $(document).ready(function() {
 
         $.ajax({
             method: "POST",
-            url: baseUrl + 'index.php/maincontroller/uploadandshare',
+            url: baseUrl + 'index.php/MainController/uploadandshare',
             data: dataObj,
             dataType: 'JSON',
             beforeSend: function() {
